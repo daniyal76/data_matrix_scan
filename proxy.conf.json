@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "https://localhost:8080",
+    "secure": false
+  },
+  "/ttac": {
+    "target": "https://api.ttac.ir/",
+    "pathRewrite": {"^/ttac" : ""},
+    "secure": false,
+    "changeOrigin": true
+  }
+}
