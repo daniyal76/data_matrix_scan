@@ -77,10 +77,7 @@ export class AppComponent implements OnInit {
 
   getProductCatalog(barcodeuid: string | undefined) {
     if (barcodeuid != undefined) {
-      let s = this.barcodeuid?.slice(18, 38);
-      console.log("this.barcodeuid", s);
-      if (s) {
-        this.appService.getProductCatalog(s).subscribe((value) => {
+        this.appService.getProductCatalog(barcodeuid).subscribe((value) => {
           if (value.StatusCode != null && value.StatusCode == 0) {
             // @ts-ignore
             this.productCatalog = value;
@@ -91,7 +88,6 @@ export class AppComponent implements OnInit {
           }
         });
       }
-    }
   }
 
   selectProduct(e: MatAutocompleteSelectedEvent) {
@@ -137,13 +133,13 @@ export class AppComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined || result != '') {
-        this.barcodeuid = result;
+        this.barcodeuid = result.slice(18, 38);
+        this.getProductCatalog(this.barcodeuid);
       }
     });
   }
 
   onFileSelected(event: any) {
-    console.log("11111111111111111111");
     this.selectedFile = event.target.files[0];
     this.scanFile();
   }
@@ -153,7 +149,6 @@ export class AppComponent implements OnInit {
     html5QrCode.scanFile(this.selectedFile, false)
       .then(decodedText => {
         // success, use decodedText
-        console.log(decodedText);
         this.barcodeuid = decodedText;
       })
       .catch(err => {
