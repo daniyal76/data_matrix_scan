@@ -131,8 +131,9 @@ export class AppComponent implements OnInit {
       height: '600px',
       width: '600px',
     });
+
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined || result != '') {
+      if (result != undefined && result != '') {
         this.barcodeuid = result.slice(18, 38);
         this.getProductCatalog(this.barcodeuid);
       }

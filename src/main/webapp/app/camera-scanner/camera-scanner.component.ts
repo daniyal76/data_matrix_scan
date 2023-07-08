@@ -1,16 +1,19 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialogRef} from "@angular/material/dialog";
-import {Html5Qrcode} from "html5-qrcode";
+import {CameraDevice, Html5Qrcode} from "html5-qrcode";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'scanner-modal',
   templateUrl: './camera-scanner.component.html'
 })
 
-export class CameraScannerComponent implements OnInit,OnDestroy {
+export class CameraScannerComponent implements OnInit, OnDestroy {
 
   public result: any;
-  html5QrCode:Html5Qrcode;
+  html5QrCode: Html5Qrcode;
+  public cameraId: string;
+  config = {fps: 30, qrbox: {width: 300, height: 300}};
 
   constructor(
     public dialogRef: MatDialogRef<CameraScannerComponent>,
@@ -19,25 +22,15 @@ export class CameraScannerComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-        this.html5QrCode.stop();
-    }
-
-  title = 'app';
-  selectedFile = null;
-
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    this.html5QrCode.stop();
   }
 
-  onUpload() {
-    console.log(this.selectedFile); // You can use FormData upload to backend server
-  }
+  public cameraList: CameraDevice[];
 
   ngOnInit(): void {
     // @ts-ignore
     const qrCodeSuccessCallback = (decodedText, decodedResult) => {
       /* handle success */
-      console.log('111111111111111111111111111', decodedText);
       if (decodedText != undefined) {
         this.result = decodedText;
         if (this.result != undefined || this.result != '') {
@@ -48,9 +41,7 @@ export class CameraScannerComponent implements OnInit,OnDestroy {
     // @ts-ignore
     const qrCodeErrorCallback = (decodedText, decodedResult) => {
       /* handle success */
-      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@', decodedResult);
     };
-    const config = {fps: 2, qrbox: {width: 300, height: 300}};
     /*
 
     // If you want to prefer front camera
@@ -62,16 +53,15 @@ export class CameraScannerComponent implements OnInit,OnDestroy {
     // Select front camera or fail with `OverconstrainedError`.
         html5QrCode.start({facingMode: {exact: "user"}}, config, qrCodeSuccessCallback, qrCodeErrorCallback);
     */
+
     this.html5QrCode = new Html5Qrcode("reader");
 // Select back camera or fail with `OverconstrainedError`.
-    this.html5QrCode.start({
-      facingMode: "environment"
-    }, config, qrCodeSuccessCallback, qrCodeErrorCallback);
+    // @ts-ignore
+    this.html5QrCode.start({facingMode: "environment"}, this.config, qrCodeSuccessCallback, qrCodeErrorCallback);
   }
 
 
   close(): void {
-    this.html5QrCode.stop();
     this.dialogRef.close(this.result);
   }
 
