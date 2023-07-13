@@ -6,7 +6,7 @@
         <mat-form-field style="flex-grow: 1">
           <mat-label>جستوجو کالا</mat-label>
           <input type="text"
-                 placeholder="جست و جو کالا"
+                 placeholder="جست و جوی کالا"
                  matInput
                  [formControl]="myControl"
                  [matAutocomplete]="auto">
@@ -27,6 +27,8 @@
         <mat-label>نام کالا</mat-label>
         <input matInput [(ngModel)]="product.productName" readonly>
       </mat-form-field>
+    </div>
+    <div style="display: flex;flex-flow: row wrap;align-items: start">
       <mat-form-field style="flex-grow: 1.5">
         <mat-label>کد تامین کننده</mat-label>
         <input matInput [(ngModel)]="product.companyCode" readonly>
