@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-form-title">
+					<span class="login100-form-title-1">
+						ورود
+					</span>
+      </div>
+
+      <form class="login100-form validate-form">
+        <div class="wrap-input100 validate-input m-b-18"
+             style="display: flex;flex-flow: row wrap;align-items: start;width: 100%">
+          <mat-form-field required style="flex-grow: 3">
+            <mat-label>نام کاربری</mat-label>
+            <input matInput name="username" [(ngModel)]="loginModel.username">
+          </mat-form-field>
+        </div>
+
+        <div class="wrap-input100 m-b-18" style="display: flex;flex-flow: row wrap;align-items: start;width: 100%">
+          <mat-form-field required style="flex-grow: 3">
+            <mat-label>رمز عبور</mat-label>
+            <input matInput name="password" type="password" [(ngModel)]="loginModel.password">
+          </mat-form-field>
+        </div>
+
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn" (click)="login()">
+            ورود
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

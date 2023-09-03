@@ -1,12 +1,14 @@
-package org.mctough.ttac.service;
+package org.vaghar.ttac.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
-import org.mctough.ttac.ProductCatalogDto;
-import org.mctough.ttac.ProductDto;
-import org.mctough.ttac.repository.ProductRepository;
+import org.vaghar.ttac.ProductCatalogDto;
+import org.vaghar.ttac.ProductDto;
+import org.vaghar.ttac.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,7 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Log4j2
 public class ProductService {
+
+  @Value("${ttac.url}")
+  private String ttacUrl;
+  @Value("${ttac.url.key}")
+  private String ttacUrlKey;
   @Autowired
   private ProductRepository productRepository;
 
@@ -35,13 +43,20 @@ public class ProductService {
 
   public ProductCatalogDto getProductCatalog(String barcodeuid) throws JsonProcessingException {
     HttpHeaders headers = new HttpHeaders();
-    headers.set("X-SSP-API-KEY", "2b5b7267-dc13-4e9f-8195-4855d0050571");
+    headers.set("X-SSP-API-KEY", ttacUrlKey);
     HttpEntity<String> entity = new HttpEntity<String>(headers);
     RestTemplate restTemplate = new RestTemplate();
     Map<String, Object> param = new HashMap<>();
     param.put("barcodeuid", barcodeuid);
-    String uri = "https://api.ttac.ir/uidservices/v2/productinstancecatalog?barcodeuid=" + barcodeuid;
-    ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+    String uri = ttacUrl + "?barcodeuid=" + barcodeuid;
+    ResponseEntity<String> result = null;
+    try {
+      result = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+      log.info("API :" + ttacUrl + " CALLED");
+    } catch (Exception e) {
+      log.error("FAILED TO GET API :" + ttacUrl);
+    }
+
     JSONObject jsonObject = new JSONObject(result.getBody());
     Object data = jsonObject.get("data");
     ProductCatalogDto productCatalogDto;
@@ -50,6 +65,7 @@ public class ProductService {
       productCatalogDto.setStatusCode(Integer.parseInt(jsonObject.get("statusCode").toString()));
       productCatalogDto.setStatusMessage(jsonObject.get("statusMessage").toString());
     } else {
+      log.error("FAILED TO GET DATA FROM API :" + ttacUrl + " WITH ERROR CODE :" + jsonObject.get("statusCode") + "AND MESSAGE :" + jsonObject.get("statusMessage"));
       productCatalogDto = new ProductCatalogDto(jsonObject.get("statusMessage").toString(), Integer.parseInt(jsonObject.get("statusCode").toString()));
     }
 

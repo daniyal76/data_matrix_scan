@@ -1,4 +1,4 @@
-package org.mctough.ttac;
+package org.vaghar.ttac;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

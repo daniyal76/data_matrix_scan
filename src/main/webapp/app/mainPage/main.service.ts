@@ -5,7 +5,7 @@ import {ProductModel} from "./product.model";
 import {ProductCatalogModel} from "./productCatalog.model";
 
 @Injectable({providedIn: "root"})
-export class AppService {
+export class MainService {
   constructor(private httpClient: HttpClient) {
   }
 

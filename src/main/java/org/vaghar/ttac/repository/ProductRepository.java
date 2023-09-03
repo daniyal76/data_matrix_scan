@@ -1,6 +1,6 @@
-package org.mctough.ttac.repository;
+package org.vaghar.ttac.repository;
 
-import org.mctough.ttac.ProductDto;
+import org.vaghar.ttac.ProductDto;
 
 import java.util.List;
 

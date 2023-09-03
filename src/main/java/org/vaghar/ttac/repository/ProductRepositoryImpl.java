@@ -1,10 +1,10 @@
-package org.mctough.ttac.repository;
+package org.vaghar.ttac.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import org.hibernate.transform.Transformers;
-import org.mctough.ttac.ProductDto;
+import org.vaghar.ttac.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

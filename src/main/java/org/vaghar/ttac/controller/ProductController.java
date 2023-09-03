@@ -1,11 +1,10 @@
-package org.mctough.ttac.controller;
+package org.vaghar.ttac.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.mctough.ttac.ProductCatalogDto;
-import org.mctough.ttac.ProductDto;
-import org.mctough.ttac.service.ProductService;
+import org.vaghar.ttac.ProductCatalogDto;
+import org.vaghar.ttac.ProductDto;
+import org.vaghar.ttac.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

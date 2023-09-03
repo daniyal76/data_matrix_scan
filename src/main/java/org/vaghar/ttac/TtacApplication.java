@@ -1,4 +1,4 @@
-package org.mctough.ttac;
+package org.vaghar.ttac;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
