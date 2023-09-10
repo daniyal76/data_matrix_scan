@@ -1,7 +1,9 @@
 export class ProductModel {
-  productCode?: number;
+  productId?: number;
+  productCode?: string;
   productName?: string;
-  companyCode?: number;
+  companyId?: number;
+  companyCode?: string;
   companyName?: string;
   count?: number;
   batch?: string | undefined;

@@ -19,12 +19,14 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public List<ProductDto> productList() {
     String sql = "select " +
+      "                                             p.id as productId," +
       "                                             p.code as productCode," +
       "                                             p.name as productName," +
-      "                                             c.code as companyCode," +
-      "                                             c.name as companyName" +
-      "              from dbo.product p , dbo.company c " +
-      "            where p.cmpcode = c.code";
+      "                                             s.id as companyId," +
+      "                                             s.code as companyCode," +
+      "                                             s.name as companyName" +
+      "              from dbo.invProducts p , dbo.splySupplies s " +
+      "            where p.splySupplierID_default = s.id";
     return entityManager.createNativeQuery(sql).unwrap(org.hibernate.query.NativeQuery.class)
       .setResultTransformer(Transformers.aliasToBean(ProductDto.class))
       .getResultList();
@@ -43,8 +45,8 @@ public class ProductRepositoryImpl implements ProductRepository {
       registerStoredProcedureParameter(8, String.class, ParameterMode.IN).
       registerStoredProcedureParameter(9, String.class, ParameterMode.IN);
     insertBatchIrc.
-      setParameter(1, productDto.getProductCode()).
-      setParameter(2, productDto.getCompanyCode()).
+      setParameter(1, productDto.getProductId()).
+      setParameter(2, productDto.getCompanyId()).
       setParameter(3, productDto.getCount()).
       setParameter(4, productDto.getBatch()).
       setParameter(5, productDto.getExpiration().replace("-","")).

@@ -11,9 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
-  private Integer productCode;
+  private Long productId;
+  private String productCode;
   private String productName;
-  private short companyCode;
+  private Long companyId;
+  private String companyCode;
   private String companyName;
   private Integer count;
   private String batch;

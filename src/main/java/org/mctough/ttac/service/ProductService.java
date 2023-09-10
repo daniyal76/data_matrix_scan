@@ -35,7 +35,7 @@ public class ProductService {
 
   public ProductCatalogDto getProductCatalog(String barcodeuid) throws JsonProcessingException {
     HttpHeaders headers = new HttpHeaders();
-    headers.set("X-SSP-API-KEY", "2b5b7267-dc13-4e9f-8195-4855d0050571");
+    headers.set("X-SSP-API-KEY", "ec0a0f53-7f02-4ae7-8c2a-1b56c0a83dba");
     HttpEntity<String> entity = new HttpEntity<String>(headers);
     RestTemplate restTemplate = new RestTemplate();
     Map<String, Object> param = new HashMap<>();
