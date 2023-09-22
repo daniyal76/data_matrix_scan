@@ -24,7 +24,6 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "sass",
             "assets": [
-              "src/main/webapp/favicon.ico",
               "src/main/webapp/assets"
             ],
             "styles": [
@@ -100,7 +99,6 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "sass",
             "assets": [
-              "src/main/webapp/favicon.ico",
               "src/main/webapp/assets"
             ],
             "styles": [

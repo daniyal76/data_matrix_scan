@@ -3,4 +3,29 @@
     <mat-icon>close</mat-icon>
   </button>
 </div>
-<div id="reader"></div>
+<div style="width: 100%">
+  <div style="display: flex;flex-flow: row wrap;align-items: center;margin: 10px 0;height: 20%">
+    <form style="width: 100%;display: flex;flex-flow: column;align-items: start;">
+      <label for="qr-input-file" class="upload-button">Upload</label>
+      <mat-form-field style="width: 100%">
+        <input type="file" id="qr-input-file" accept="image/*" name="upload"
+               (click)="this.html5QrCode.isScanning ? this.html5QrCode.stop() : null" hidden>
+        <mat-select (selectionChange)="selectDevice($event)" name="cameras"
+                    style="margin-right: 10px">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let camera of cameraList"
+                      [value]="camera.id">{{camera.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-container *ngIf="this.zoomLists != null && this.zoomLists.length > 0">
+        <mat-form-field style="width: 100%">
+          <mat-select (selectionChange)="zoom($event)" name="zooms">
+            <mat-option *ngFor="let zooom of zoomLists"
+                        [value]="zooom">{{zooom}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+    </form>
+  </div>
+  <div id="reader"></div>
+</div>
