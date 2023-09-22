@@ -35,8 +35,8 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public String save(ProductDto productDto) {
     StoredProcedureQuery insertBatchIrc = entityManager.createStoredProcedureQuery("dbo.Insert_Batch_IRC").
-      registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN).
-      registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN).
+      registerStoredProcedureParameter(1, Long.class, ParameterMode.IN).
+      registerStoredProcedureParameter(2, Long.class, ParameterMode.IN).
       registerStoredProcedureParameter(3, Integer.class, ParameterMode.IN).
       registerStoredProcedureParameter(4, String.class, ParameterMode.IN).
       registerStoredProcedureParameter(5, String.class, ParameterMode.IN).
